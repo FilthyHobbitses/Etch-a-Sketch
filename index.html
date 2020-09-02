@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="button">Reset</button>
+    <div id="container"></div>
+    <script>
+      let container = document.getElementById("container");
+
+      //create grid based on input number of rows, columns
+      function createGrid(rows, cols) {
+        let root = document.documentElement;
+        getComputedStyle(root);
+        root.style.setProperty("--numRows", rows);
+        root.style.setProperty("--numCols", cols);
+
+        for (i = 0; i < rows * cols; i++) {
+          let box = document.createElement("div");
+          box.classList.add("boxes");
+
+          container.appendChild(box);
+        }
+
+        //hover
+        let divBox = document.querySelectorAll(".boxes");
+        for (i = 0; i < divBox.length; i++) {
+          divBox[i].addEventListener("mouseover", mouseOver);
+        }
+
+        function mouseOver(e) {
+          e.target.style.background = "black";
+        }
+      }
+      createGrid(10, 10);
+
+      // hover effect
+
+      //reset button
+
+      let button = document.getElementById("button");
+      button.addEventListener("click", resetBoard);
+
+      function resetBoard() {
+        let divBox = document.querySelectorAll(".boxes");
+        for (i = 0; i < divBox.length; i++) {
+          container.removeChild(divBox[i]);
+        }
+        let rowNumbers = prompt("how many rows do you want?", 10);
+        let colNumbers = prompt("how many columns do you want?", 10);
+        createGrid(rowNumbers, colNumbers);
+      }
+    </script>
+  </body>
+</html>
